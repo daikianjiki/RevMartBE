@@ -23,12 +23,28 @@ public class UserService {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
     }
+
+    /**
+     * Registers a new user in the system.
+     *
+     * @param user the user object ot be registered
+     * @return the registered user object with an assigned unique identifier
+     * @throws ServicesException if a user with the same username already exist in the system
+     */
     public User registerUser(User user) throws ServicesException {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new ServicesException("User Already Exists");
         }
         return userRepository.save(user);
     }
+
+    /**
+     * Logs in a user with the specified username and password.
+     *
+     * @param user the user object containing the login credentials
+     * @return a logged in user object
+     * @throws ServicesException if the username or password is incorrect
+     */
     public User loginUser(User user) throws ServicesException {
         User foundUser = userRepository.findByUsername(user.getUsername());
         if (foundUser == null || !foundUser.getPassword().equals(user.getPassword())) {
@@ -36,6 +52,14 @@ public class UserService {
         }
         return foundUser;
     }
+    /**
+     * Adds a specific product to the cart of the specified user.
+     *
+     * @param uid is the unique identifier for the user
+     * @param pid is the unique identifier for the product
+     * @return a user object, with the updated cart information
+     * @throws ServicesException if the product cannot be found
+     */
     public User addProductToCart(long uid, long pid) throws ServicesException {
         User user = userRepository.findById(uid).get();
         Product product = productRepository.findById(pid).orElseThrow(() -> new ServiceException("Product Not Found"));
@@ -56,6 +80,13 @@ public class UserService {
         user.setCart(cart);
         return userRepository.save(user);
     }
+    /**
+     * Removes a specific product from the cart of the specified user.
+     *
+     * @param uid is the unique identifier for the user
+     * @param pid is the unique identifier for the product
+     * @return a user object, with the updated cart information
+     */
     public User removeProductFromCart(long uid, long pid) {
         User user = userRepository.findById(uid).get();
         Product product = productRepository.findById(pid).get();
@@ -73,6 +104,12 @@ public class UserService {
         user.setCart(cart);
         return userRepository.save(user);
     }
+    /**
+     * Empties a specified user's cart.
+     *
+     * @param id is the unique identifier for the user
+     * @return a user object, with the update cart information
+     */
     public User emptyCart(long id) {
         User user = userRepository.findById(id).get();
         List<Product> cart = new ArrayList<>();
@@ -80,6 +117,12 @@ public class UserService {
         user.setCart(cart);
         return userRepository.save(user);
     }
+    /**
+     * Returns a specified user.
+     *
+     * @param id is the unique identifier for the user
+     * @return a user object
+     */
     public User getUserById(long id) {
         return userRepository.findById(id).get();
     }
