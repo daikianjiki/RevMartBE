@@ -19,7 +19,7 @@ public class UserController {
         return userService.registerUser(user);
     }
     @PostMapping("login")
-    public User loginUser(@RequestBody User user) {
+    public User loginUser(@RequestBody User user) throws ServicesException {
         return userService.loginUser(user);
     }
     @PostMapping("{uid}/addProduct/{pid}")

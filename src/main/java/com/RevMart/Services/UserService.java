@@ -23,18 +23,19 @@ public class UserService {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
     }
-
     public User registerUser(User user) throws ServicesException {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new ServicesException("User Already Exists");
         }
         return userRepository.save(user);
     }
-
-    public User loginUser(User user) {
-        return userRepository.findByUsername(user.getUsername());
+    public User loginUser(User user) throws ServicesException {
+        User foundUser = userRepository.findByUsername(user.getUsername());
+        if (foundUser == null || !foundUser.getPassword().equals(user.getPassword())) {
+            throw new ServicesException("Incorrect username or password");
+        }
+        return foundUser;
     }
-
     public User addProductToCart(long uid, long pid) throws ServicesException {
         User user = userRepository.findById(uid).get();
         Product product = productRepository.findById(pid).orElseThrow(() -> new ServiceException("Product Not Found"));
