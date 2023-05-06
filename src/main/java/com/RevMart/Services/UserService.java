@@ -5,7 +5,6 @@ import com.RevMart.Models.Product;
 import com.RevMart.Models.User;
 import com.RevMart.Repositories.ProductRepository;
 import com.RevMart.Repositories.UserRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +61,7 @@ public class UserService {
      */
     public User addProductToCart(long uid, long pid) throws ServicesException {
         User user = userRepository.findById(uid).get();
-        Product product = productRepository.findById(pid).orElseThrow(() -> new ServiceException("Product Not Found"));
+        Product product = productRepository.findById(pid).orElseThrow(() -> new ServicesException("Product Not Found"));
         List<Product> cart = user.getCart();
         boolean productFound = false;
         for (Product item : cart) {
