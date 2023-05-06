@@ -1,9 +1,11 @@
 package com.RevMart;
 
+import com.RevMart.Controllers.UserController;
 import com.RevMart.Services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import com.RevMart.Exception.ServicesException;
 import com.RevMart.Models.User;
@@ -11,16 +13,22 @@ import com.RevMart.Repositories.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.test.web.servlet.MockMvc;
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-class RevMartApplicationTests {
+class ServicesTest {
 	@Mock
 	UserRepository userRepository;
 	@InjectMocks
 	UserService userService;
+	@InjectMocks
+	UserController userController;
+	@Autowired
+	MockMvc mockMvc;
 
 	@Test
 	void contextLoads() {
