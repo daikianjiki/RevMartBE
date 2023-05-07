@@ -83,3 +83,4 @@ Since there are no payment gateway for this project, a user can empty their cart
 ### Resources
 - [Basic formatting for readme](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 - [How to write a unit test with JUnit](https://www.infoworld.com/article/3543268/junit-5-tutorial-part-2-unit-testing-spring-mvc-with-junit-5.html)
+- [Test a SpringBoot REST Controll with JUnit 5](https://howtodoinjava.com/spring-boot2/testing/rest-controller-unit-test-example/)
