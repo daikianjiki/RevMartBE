@@ -20,6 +20,7 @@ public class Product {
     public String name;
     public double price;
     public long quantity;
+    public String img;
 
     public void incrementQuantity() {
         this.quantity++;
